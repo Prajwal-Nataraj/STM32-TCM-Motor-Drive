@@ -1,0 +1,4 @@
+enc_align_ctrl.c:45:13:EAC_Init	4	static
+enc_align_ctrl.c:72:13:EAC_StartAlignment	8	static
+enc_align_ctrl.c:119:13:EAC_Exec	8	static
+enc_align_ctrl.c:162:13:EAC_GetRestartState	0	static

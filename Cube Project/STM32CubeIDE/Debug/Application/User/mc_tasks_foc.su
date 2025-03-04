@@ -1,0 +1,7 @@
+mc_tasks_foc.c:440:13:FOC_Clear	24	static
+mc_tasks_foc.c:80:13:FOC_Init	40	static
+mc_tasks_foc.c:161:6:TSK_MF_StopProcessing	8	static
+mc_tasks_foc.c:476:13:FOC_InitAdditionalMethods	0	static
+mc_tasks_foc.c:499:13:FOC_CalcCurrRef	24	static,ignoring_inline_asm
+mc_tasks_foc.c:179:13:TSK_MediumFrequencyTaskM1	24	static
+mc_tasks_foc.c:554:16:FOC_HighFrequencyTask	56	static
