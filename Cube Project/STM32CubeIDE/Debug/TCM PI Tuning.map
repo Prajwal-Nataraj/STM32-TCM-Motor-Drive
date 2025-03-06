@@ -1387,7 +1387,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x46 Application/User/mc_configuration_registers.o
  .debug_macro   0x0000000000000000      0x228 Application/User/mc_configuration_registers.o
  .debug_line    0x0000000000000000      0x989 Application/User/mc_configuration_registers.o
- .debug_str     0x0000000000000000   0x128ff4 Application/User/mc_configuration_registers.o
+ .debug_str     0x0000000000000000   0x128ff3 Application/User/mc_configuration_registers.o
  .comment       0x0000000000000000       0x7c Application/User/mc_configuration_registers.o
  .ARM.attributes
                 0x0000000000000000       0x35 Application/User/mc_configuration_registers.o
@@ -2046,7 +2046,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x228 Application/User/mc_perf.o
  .debug_macro   0x0000000000000000       0x10 Application/User/mc_perf.o
  .debug_line    0x0000000000000000      0xa90 Application/User/mc_perf.o
- .debug_str     0x0000000000000000   0x128b5a Application/User/mc_perf.o
+ .debug_str     0x0000000000000000   0x128b59 Application/User/mc_perf.o
  .comment       0x0000000000000000       0x7c Application/User/mc_perf.o
  .debug_frame   0x0000000000000000       0xa8 Application/User/mc_perf.o
  .ARM.attributes
@@ -3375,7 +3375,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x228 Application/User/stm32g4xx_it.o
  .debug_macro   0x0000000000000000       0xd6 Application/User/stm32g4xx_it.o
  .debug_line    0x0000000000000000      0xc33 Application/User/stm32g4xx_it.o
- .debug_str     0x0000000000000000   0x12b0e3 Application/User/stm32g4xx_it.o
+ .debug_str     0x0000000000000000   0x12b0e2 Application/User/stm32g4xx_it.o
  .comment       0x0000000000000000       0x7c Application/User/stm32g4xx_it.o
  .ARM.attributes
                 0x0000000000000000       0x35 Application/User/stm32g4xx_it.o
@@ -6760,7 +6760,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x42 Middlewares/MotorControl/bus_voltage_sensor.o
  .debug_macro   0x0000000000000000      0x1f0 Middlewares/MotorControl/bus_voltage_sensor.o
  .debug_line    0x0000000000000000      0x973 Middlewares/MotorControl/bus_voltage_sensor.o
- .debug_str     0x0000000000000000   0x123487 Middlewares/MotorControl/bus_voltage_sensor.o
+ .debug_str     0x0000000000000000   0x123486 Middlewares/MotorControl/bus_voltage_sensor.o
  .comment       0x0000000000000000       0x7c Middlewares/MotorControl/bus_voltage_sensor.o
  .debug_frame   0x0000000000000000       0x30 Middlewares/MotorControl/bus_voltage_sensor.o
  .ARM.attributes
@@ -7019,7 +7019,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x1f0 Middlewares/MotorControl/digital_output.o
  .debug_macro   0x0000000000000000       0x10 Middlewares/MotorControl/digital_output.o
  .debug_line    0x0000000000000000      0x98f Middlewares/MotorControl/digital_output.o
- .debug_str     0x0000000000000000   0x1234f4 Middlewares/MotorControl/digital_output.o
+ .debug_str     0x0000000000000000   0x1234f3 Middlewares/MotorControl/digital_output.o
  .comment       0x0000000000000000       0x7c Middlewares/MotorControl/digital_output.o
  .debug_frame   0x0000000000000000       0x40 Middlewares/MotorControl/digital_output.o
  .ARM.attributes
@@ -7524,7 +7524,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x42 Middlewares/MotorControl/open_loop.o
  .debug_macro   0x0000000000000000      0x1f0 Middlewares/MotorControl/open_loop.o
  .debug_line    0x0000000000000000      0x9c3 Middlewares/MotorControl/open_loop.o
- .debug_str     0x0000000000000000   0x1236a8 Middlewares/MotorControl/open_loop.o
+ .debug_str     0x0000000000000000   0x1236a7 Middlewares/MotorControl/open_loop.o
  .comment       0x0000000000000000       0x7c Middlewares/MotorControl/open_loop.o
  .debug_frame   0x0000000000000000       0x58 Middlewares/MotorControl/open_loop.o
  .ARM.attributes
@@ -8342,7 +8342,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x1f0 Middlewares/MotorControl/revup_ctrl.o
  .debug_macro   0x0000000000000000       0x2e Middlewares/MotorControl/revup_ctrl.o
  .debug_line    0x0000000000000000      0xc18 Middlewares/MotorControl/revup_ctrl.o
- .debug_str     0x0000000000000000   0x1243de Middlewares/MotorControl/revup_ctrl.o
+ .debug_str     0x0000000000000000   0x1243dd Middlewares/MotorControl/revup_ctrl.o
  .comment       0x0000000000000000       0x7c Middlewares/MotorControl/revup_ctrl.o
  .debug_frame   0x0000000000000000      0x10c Middlewares/MotorControl/revup_ctrl.o
  .ARM.attributes
@@ -10585,100 +10585,100 @@ OUTPUT(TCM PI Tuning.elf elf32-littlearm)
  .debug_aranges
                 0x0000000000001b88       0x70 Middlewares/MotorControl/virtual_speed_sensor.o
 
-.debug_str      0x0000000000000000   0x13933b
+.debug_str      0x0000000000000000   0x13933a
  .debug_str     0x0000000000000000       0xb6 Application/Startup/startup_stm32g474retx.o
- .debug_str     0x00000000000000b6   0x12d1a4 Application/User/MotorCmds.o
-                                     0x12fdcc (size before relaxing)
- .debug_str     0x000000000012d25a      0xa20 Application/User/MotorParams.o
-                                     0x130086 (size before relaxing)
- .debug_str     0x000000000012dc7a     0x16c7 Application/User/main.o
-                                     0x131d27 (size before relaxing)
- .debug_str     0x000000000012f341      0xd86 Application/User/mc_api.o
-                                     0x126564 (size before relaxing)
- .debug_str     0x00000000001300c7       0xbb Application/User/mc_app_hooks.o
-                                     0x1233c6 (size before relaxing)
- .debug_str     0x0000000000130182       0x9e Application/User/mc_config.o
-                                     0x12b132 (size before relaxing)
- .debug_str     0x0000000000130220       0xa0 Application/User/mc_config_common.o
-                                     0x12b134 (size before relaxing)
- .debug_str     0x00000000001302c0      0x432 Application/User/mc_interface.o
-                                     0x12b581 (size before relaxing)
- .debug_str     0x00000000001306f2      0x1d0 Application/User/mc_math.o
-                                     0x125bbb (size before relaxing)
- .debug_str     0x00000000001308c2       0x7a Application/User/mc_parameters.o
-                                     0x12b125 (size before relaxing)
- .debug_str     0x000000000013093c      0x52c Application/User/mc_tasks.o
-                                     0x12b783 (size before relaxing)
- .debug_str     0x0000000000130e68      0x38d Application/User/mc_tasks_foc.o
-                                     0x12b909 (size before relaxing)
- .debug_str     0x00000000001311f5       0xa0 Application/User/motorcontrol.o
-                                     0x12b8a6 (size before relaxing)
- .debug_str     0x0000000000131295      0x1cf Application/User/pwm_common.o
-                                     0x1236f2 (size before relaxing)
- .debug_str     0x0000000000131464      0x404 Application/User/pwm_curr_fdbk.o
-                                     0x126391 (size before relaxing)
- .debug_str     0x0000000000131868      0x3c5 Application/User/regular_conversion_manager.o
-                                     0x125be0 (size before relaxing)
- .debug_str     0x0000000000131c2d      0x954 Application/User/stm32_mc_common_it.o
-                                     0x12b796 (size before relaxing)
- .debug_str     0x0000000000132581      0x3bb Application/User/stm32g4xx_hal_msp.o
-                                     0x12c66a (size before relaxing)
- .debug_str     0x000000000013293c      0x118 Application/User/stm32g4xx_mc_it.o
-                                     0x12af9b (size before relaxing)
- .debug_str     0x0000000000132a54      0x10d Drivers/CMSIS/system_stm32g4xx.o
+ .debug_str     0x00000000000000b6   0x12d1a3 Application/User/MotorCmds.o
+                                     0x12fdcb (size before relaxing)
+ .debug_str     0x000000000012d259      0xa20 Application/User/MotorParams.o
+                                     0x130085 (size before relaxing)
+ .debug_str     0x000000000012dc79     0x16c7 Application/User/main.o
+                                     0x131d26 (size before relaxing)
+ .debug_str     0x000000000012f340      0xd86 Application/User/mc_api.o
+                                     0x126563 (size before relaxing)
+ .debug_str     0x00000000001300c6       0xbb Application/User/mc_app_hooks.o
+                                     0x1233c5 (size before relaxing)
+ .debug_str     0x0000000000130181       0x9e Application/User/mc_config.o
+                                     0x12b131 (size before relaxing)
+ .debug_str     0x000000000013021f       0xa0 Application/User/mc_config_common.o
+                                     0x12b133 (size before relaxing)
+ .debug_str     0x00000000001302bf      0x432 Application/User/mc_interface.o
+                                     0x12b580 (size before relaxing)
+ .debug_str     0x00000000001306f1      0x1d0 Application/User/mc_math.o
+                                     0x125bba (size before relaxing)
+ .debug_str     0x00000000001308c1       0x7a Application/User/mc_parameters.o
+                                     0x12b124 (size before relaxing)
+ .debug_str     0x000000000013093b      0x52c Application/User/mc_tasks.o
+                                     0x12b782 (size before relaxing)
+ .debug_str     0x0000000000130e67      0x38d Application/User/mc_tasks_foc.o
+                                     0x12b908 (size before relaxing)
+ .debug_str     0x00000000001311f4       0xa0 Application/User/motorcontrol.o
+                                     0x12b8a5 (size before relaxing)
+ .debug_str     0x0000000000131294      0x1cf Application/User/pwm_common.o
+                                     0x1236f1 (size before relaxing)
+ .debug_str     0x0000000000131463      0x404 Application/User/pwm_curr_fdbk.o
+                                     0x126390 (size before relaxing)
+ .debug_str     0x0000000000131867      0x3c5 Application/User/regular_conversion_manager.o
+                                     0x125bdf (size before relaxing)
+ .debug_str     0x0000000000131c2c      0x954 Application/User/stm32_mc_common_it.o
+                                     0x12b795 (size before relaxing)
+ .debug_str     0x0000000000132580      0x3bb Application/User/stm32g4xx_hal_msp.o
+                                     0x12c669 (size before relaxing)
+ .debug_str     0x000000000013293b      0x118 Application/User/stm32g4xx_mc_it.o
+                                     0x12af9a (size before relaxing)
+ .debug_str     0x0000000000132a53      0x10d Drivers/CMSIS/system_stm32g4xx.o
                                      0x10a03c (size before relaxing)
- .debug_str     0x0000000000132b61      0x661 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal.o
+ .debug_str     0x0000000000132b60      0x661 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal.o
                                      0x10adcd (size before relaxing)
- .debug_str     0x00000000001331c2      0xae0 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_adc.o
+ .debug_str     0x00000000001331c1      0xae0 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_adc.o
                                      0x10b053 (size before relaxing)
- .debug_str     0x0000000000133ca2      0x523 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_adc_ex.o
+ .debug_str     0x0000000000133ca1      0x523 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_adc_ex.o
                                      0x10afc8 (size before relaxing)
- .debug_str     0x00000000001341c5      0x2ab Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cordic.o
+ .debug_str     0x00000000001341c4      0x2ab Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cordic.o
                                      0x10a4dc (size before relaxing)
- .debug_str     0x0000000000134470      0x39b Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cortex.o
+ .debug_str     0x000000000013446f      0x39b Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_cortex.o
                                      0x10aa29 (size before relaxing)
- .debug_str     0x000000000013480b      0x13a Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_gpio.o
+ .debug_str     0x000000000013480a      0x13a Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_gpio.o
                                      0x10a1f6 (size before relaxing)
- .debug_str     0x0000000000134945      0x4f3 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_pwr_ex.o
+ .debug_str     0x0000000000134944      0x4f3 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_pwr_ex.o
                                      0x10a54b (size before relaxing)
- .debug_str     0x0000000000134e38      0x4d0 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_rcc.o
+ .debug_str     0x0000000000134e37      0x4d0 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_rcc.o
                                      0x10a755 (size before relaxing)
- .debug_str     0x0000000000135308      0x464 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_rcc_ex.o
+ .debug_str     0x0000000000135307      0x464 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_rcc_ex.o
                                      0x10a7b4 (size before relaxing)
- .debug_str     0x000000000013576c      0xe93 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_tim.o
+ .debug_str     0x000000000013576b      0xe93 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_tim.o
                                      0x10b4fc (size before relaxing)
- .debug_str     0x00000000001365ff      0x82a Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_tim_ex.o
+ .debug_str     0x00000000001365fe      0x82a Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_tim_ex.o
                                      0x10b155 (size before relaxing)
- .debug_str     0x0000000000136e29      0x9f6 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_uart.o
+ .debug_str     0x0000000000136e28      0x9f6 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_uart.o
                                      0x10afc6 (size before relaxing)
- .debug_str     0x000000000013781f      0x2c7 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_uart_ex.o
+ .debug_str     0x000000000013781e      0x2c7 Drivers/STM32G4xx_HAL_Driver/stm32g4xx_hal_uart_ex.o
                                      0x10a7c8 (size before relaxing)
- .debug_str     0x0000000000137ae6      0x106 Middlewares/MotorControl/circle_limitation.o
-                                     0x125aa1 (size before relaxing)
- .debug_str     0x0000000000137bec       0xf5 Middlewares/MotorControl/enc_align_ctrl.o
-                                     0x123c3c (size before relaxing)
- .debug_str     0x0000000000137ce1      0x297 Middlewares/MotorControl/encoder_speed_pos_fdbk.o
-                                     0x12398c (size before relaxing)
- .debug_str     0x0000000000137f78      0x11d Middlewares/MotorControl/ntc_temperature_sensor.o
-                                     0x123546 (size before relaxing)
- .debug_str     0x0000000000138095      0x2ce Middlewares/MotorControl/pid_regulator.o
-                                     0x123743 (size before relaxing)
- .debug_str     0x0000000000138363       0xd7 Middlewares/MotorControl/pqd_motor_power_measurement.o
-                                     0x1235d7 (size before relaxing)
- .debug_str     0x000000000013843a      0x68f Middlewares/MotorControl/r3_1_g4xx_pwm_curr_fdbk.o
-                                     0x1248b6 (size before relaxing)
- .debug_str     0x0000000000138ac9       0xd8 Middlewares/MotorControl/r_divider_bus_voltage_sensor.o
-                                     0x1235a6 (size before relaxing)
- .debug_str     0x0000000000138ba1      0x171 Middlewares/MotorControl/ramp_ext_mngr.o
-                                     0x123516 (size before relaxing)
- .debug_str     0x0000000000138d12      0x122 Middlewares/MotorControl/speed_pos_fdbk.o
-                                     0x123602 (size before relaxing)
- .debug_str     0x0000000000138e34      0x1a1 Middlewares/MotorControl/speed_torq_ctrl.o
-                                     0x123a76 (size before relaxing)
- .debug_str     0x0000000000138fd5      0x173 Middlewares/MotorControl/trajectory_ctrl.o
-                                     0x123f74 (size before relaxing)
- .debug_str     0x0000000000139148      0x1f3 Middlewares/MotorControl/virtual_speed_sensor.o
-                                     0x1237cd (size before relaxing)
+ .debug_str     0x0000000000137ae5      0x106 Middlewares/MotorControl/circle_limitation.o
+                                     0x125aa0 (size before relaxing)
+ .debug_str     0x0000000000137beb       0xf5 Middlewares/MotorControl/enc_align_ctrl.o
+                                     0x123c3b (size before relaxing)
+ .debug_str     0x0000000000137ce0      0x297 Middlewares/MotorControl/encoder_speed_pos_fdbk.o
+                                     0x12398b (size before relaxing)
+ .debug_str     0x0000000000137f77      0x11d Middlewares/MotorControl/ntc_temperature_sensor.o
+                                     0x123545 (size before relaxing)
+ .debug_str     0x0000000000138094      0x2ce Middlewares/MotorControl/pid_regulator.o
+                                     0x123742 (size before relaxing)
+ .debug_str     0x0000000000138362       0xd7 Middlewares/MotorControl/pqd_motor_power_measurement.o
+                                     0x1235d6 (size before relaxing)
+ .debug_str     0x0000000000138439      0x68f Middlewares/MotorControl/r3_1_g4xx_pwm_curr_fdbk.o
+                                     0x1248b5 (size before relaxing)
+ .debug_str     0x0000000000138ac8       0xd8 Middlewares/MotorControl/r_divider_bus_voltage_sensor.o
+                                     0x1235a5 (size before relaxing)
+ .debug_str     0x0000000000138ba0      0x171 Middlewares/MotorControl/ramp_ext_mngr.o
+                                     0x123515 (size before relaxing)
+ .debug_str     0x0000000000138d11      0x122 Middlewares/MotorControl/speed_pos_fdbk.o
+                                     0x123601 (size before relaxing)
+ .debug_str     0x0000000000138e33      0x1a1 Middlewares/MotorControl/speed_torq_ctrl.o
+                                     0x123a75 (size before relaxing)
+ .debug_str     0x0000000000138fd4      0x173 Middlewares/MotorControl/trajectory_ctrl.o
+                                     0x123f73 (size before relaxing)
+ .debug_str     0x0000000000139147      0x1f3 Middlewares/MotorControl/virtual_speed_sensor.o
+                                     0x1237cc (size before relaxing)
 
 .debug_ranges   0x0000000000000000     0x4d80
  .debug_ranges  0x0000000000000000       0x20 Application/Startup/startup_stm32g474retx.o
