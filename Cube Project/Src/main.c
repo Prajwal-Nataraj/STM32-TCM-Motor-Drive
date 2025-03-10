@@ -154,7 +154,7 @@ int main(void)
   {
 	  HAL_UART_Receive(&huart_MD, CmdBuf, 256, 100);
 
-	  if((CmdBuf[0] != 0) && (pMCI[M1]->pPosCtrl->PositionCtrlStatus != TC_MOVEMENT_ON_GOING))
+	  if(CmdBuf[0] != 0)
 	  {
 		  stdRet = Cmd_Process(CmdBuf, RspBuf, &RspLen);
 		  CmdBuf[0] = 0;
