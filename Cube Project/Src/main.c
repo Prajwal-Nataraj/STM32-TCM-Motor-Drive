@@ -71,21 +71,7 @@ static void MX_NVIC_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void ftoa(float n, char* res, int afterpoint)
-{
-	char fpart_char[5] = {0};
 
-	int ipart = (int)n;
-    float fpart = abs(n - (float)ipart);
-    fpart = fpart * pow(10, afterpoint);
-
-    itoa(ipart, res, 10);
-    itoa(fpart, fpart_char, 10);
-
-    strcat(fpart_char, "\r\n");
-    strcat(res, ".");
-    strcat(res, fpart_char);
-}
 /* USER CODE END 0 */
 
 /**
@@ -140,8 +126,6 @@ int main(void)
     float jogTime = 0;
     float jogDist = 0;
     float mm_min_send = 0.0;
-
-    char mm_min_sendChar[15] = {0};
 
     StdReturn_t stdRet;
     HAL_UART_Transmit(&huart_MD, (uint8_t *)"Welcome to TCM Motor Drive", 28, UART_TICK_TIMEOUT);
@@ -198,9 +182,7 @@ int main(void)
 	  {
 		  Motor_SetRunTick(HAL_GetTick());
 		  mm_min_send = (((float)(SpeednTorqCtrlM1.SPD->hAvrMecSpeedUnit))/6.0)*5.08;
-		  ftoa(mm_min_send, mm_min_sendChar, 2);
-		  HAL_UART_Transmit(&huart_MD, (uint8_t*)mm_min_sendChar, 10, 50);
-
+		  sendToPort(&huart_MD, mm_min_send);
 	  }
 
     /* USER CODE END WHILE */

@@ -49,7 +49,7 @@ all: TCM\ PI\ Tuning.elf secondary-outputs
 
 # Tool invocations
 TCM\ PI\ Tuning.elf: $(OBJS) $(USER_OBJS) C:\Users\PNataraj.AMETEK-AD\OneDrive\ -\ AMETEK\ Inc\Original\ Files\GitKraken\TCM\ PI\ Tuning\Cube\ Project\STM32CubeIDE\STM32G474RETX_FLASH.ld
-	arm-none-eabi-gcc -o "TCM PI Tuning.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\PNataraj.AMETEK-AD\OneDrive - AMETEK Inc\Original Files\GitKraken\TCM PI Tuning\Cube Project\STM32CubeIDE\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TCM PI Tuning.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "TCM PI Tuning.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\PNataraj.AMETEK-AD\OneDrive - AMETEK Inc\Original Files\GitKraken\TCM PI Tuning\Cube Project\STM32CubeIDE\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TCM PI Tuning.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -62,5 +62,7 @@ bool Motor_RTZ(void);
 
 unsigned long Motor_GetRunTick(void);
 void Motor_SetRunTick(unsigned long);
+/* Send Data to COM Port */
+bool sendToPort(UART_HandleTypeDef *, float);
 
 #endif

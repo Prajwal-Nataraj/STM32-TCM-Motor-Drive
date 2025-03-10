@@ -91,7 +91,6 @@ bool Motor_ResetParams(void)
 }
 
 void Motor_ResetDriveParams(void)
-
 {
 	FOC_Init();
 }
@@ -178,6 +177,20 @@ unsigned long Motor_GetRunTick(void)
 void Motor_SetRunTick(unsigned long val)
 {
 	sendSpeed.prev_time_send = val;
+}
+
+bool sendToPort(UART_HandleTypeDef *phuart_MD, float sendData)
+{
+	char sendBuf[15];
+	HAL_StatusTypeDef retVal;
+
+	sprintf(sendBuf, "%.2f\r\n", sendData);
+	retVal = HAL_UART_Transmit(phuart_MD, (uint8_t *)sendBuf, 15, 100);
+
+	if(HAL_OK == retVal)
+		return true;
+
+	return false;
 }
 
 //bool Motor_RTZ(void)

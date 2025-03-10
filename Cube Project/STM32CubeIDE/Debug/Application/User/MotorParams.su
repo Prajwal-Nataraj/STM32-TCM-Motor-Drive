@@ -16,3 +16,4 @@ MotorParams.c:143:6:Motor_SetZero	0	static
 MotorParams.c:149:6:Motor_RTZ	48	static
 MotorParams.c:173:15:Motor_GetRunTick	0	static
 MotorParams.c:178:6:Motor_SetRunTick	0	static
+MotorParams.c:183:6:sendToPort	24	static
