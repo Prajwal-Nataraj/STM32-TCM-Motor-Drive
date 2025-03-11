@@ -65,6 +65,4 @@ void Motor_SetRunTick(unsigned long);
 /* Send Data to COM Port */
 bool sendToPort(UART_HandleTypeDef *, float);
 
-bool sendFromPort(UART_HandleTypeDef *, float);
-
 #endif
