@@ -146,14 +146,14 @@ bool TC_MoveCommand(PosCtrl_Handle_t *pHandle, float startingAngle, float angleS
     pHandle->SubStepDuration = pHandle->MovementDuration / 9.0f;
 
     /* Sub step of acceleration phase */
-    pHandle->SubStep[0] = 0 * pHandle->SubStepDuration;   /* Sub-step 1 of acceleration phase */
-    pHandle->SubStep[1] = 0 * pHandle->SubStepDuration;   /* Sub-step 2 of acceleration phase */
-    pHandle->SubStep[2] = 0 * pHandle->SubStepDuration;   /* Sub-step 3 of acceleration phase */
+    pHandle->SubStep[0] = 1 * pHandle->SubStepDuration;   /* Sub-step 1 of acceleration phase */
+    pHandle->SubStep[1] = 2 * pHandle->SubStepDuration;   /* Sub-step 2 of acceleration phase */
+    pHandle->SubStep[2] = 3 * pHandle->SubStepDuration;   /* Sub-step 3 of acceleration phase */
 
     /* Sub step of  deceleration Phase */
-    pHandle->SubStep[3] = 9.5 * pHandle->SubStepDuration;   /* Sub-step 1 of deceleration phase */
-    pHandle->SubStep[4] = 9.5 * pHandle->SubStepDuration;   /* Sub-step 2 of deceleration phase */
-    pHandle->SubStep[5] = 9.5 * pHandle->SubStepDuration;   /* Sub-step 3 of deceleration phase */
+    pHandle->SubStep[3] = 6 * pHandle->SubStepDuration;   /* Sub-step 1 of deceleration phase */
+    pHandle->SubStep[4] = 7 * pHandle->SubStepDuration;   /* Sub-step 2 of deceleration phase */
+    pHandle->SubStep[5] = 8 * pHandle->SubStepDuration;   /* Sub-step 3 of deceleration phase */
 
     /* Jerk (J) to be used by the trajectory calculator to integrate (step by step) the target position.
        J = DeltaTheta/(12 * A * A * A)  => DeltaTheta = final position and A = Sub-Step duration */

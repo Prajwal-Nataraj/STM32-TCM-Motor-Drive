@@ -27,9 +27,8 @@
 #include "revup_ctrl.h"
 #include "mc_config_common.h"
 #include "pwm_curr_fdbk.h"
-#include "trajectory_ctrl.h"
 #include "pqd_motor_power_measurement.h"
-#include "r3_1_g4xx_pwm_curr_fdbk.h"
+#include "r3_2_g4xx_pwm_curr_fdbk.h"
 #include "ramp_ext_mngr.h"
 #include "circle_limitation.h"
 
@@ -39,9 +38,7 @@
 
 extern PID_Handle_t PIDIqHandle_M1;
 extern PID_Handle_t PIDIdHandle_M1;
-extern PID_Handle_t PID_PosParamsM1;
-extern PosCtrl_Handle_t PosCtrlM1;
-extern PWMC_R3_1_Handle_t PWM_Handle_M1;
+extern PWMC_R3_2_Handle_t PWM_Handle_M1;
 extern PQD_MotorPowMeas_Handle_t PQD_MotorPowMeasM1;
 extern PQD_MotorPowMeas_Handle_t *pPQD_MotorPowMeasM1;
 
@@ -52,7 +49,6 @@ extern FOCVars_t FOCVars[NBR_OF_MOTORS];
 extern PID_Handle_t *pPIDIq[NBR_OF_MOTORS];
 extern PID_Handle_t *pPIDId[NBR_OF_MOTORS];
 extern PQD_MotorPowMeas_Handle_t *pMPM[NBR_OF_MOTORS];
-extern PosCtrl_Handle_t *pPosCtrl[NBR_OF_MOTORS];
 extern MCI_Handle_t* pMCI[NBR_OF_MOTORS];
 extern SpeednTorqCtrl_Handle_t *pSTC[NBR_OF_MOTORS];
 extern MCI_Handle_t Mci[NBR_OF_MOTORS];

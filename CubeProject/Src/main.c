@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2024 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -44,6 +44,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 ADC_HandleTypeDef hadc1;
+ADC_HandleTypeDef hadc2;
 
 CORDIC_HandleTypeDef hcordic;
 
@@ -51,6 +52,8 @@ TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart_MD;
+DMA_HandleTypeDef hdma_usart2_rx;
+DMA_HandleTypeDef hdma_usart2_tx;
 
 /* USER CODE BEGIN PV */
 
@@ -59,7 +62,9 @@ UART_HandleTypeDef huart_MD;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+//static void MX_DMA_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_ADC2_Init(void);
 static void MX_CORDIC_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_TIM2_Init(void);
@@ -103,32 +108,38 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+//  MX_DMA_Init();
   MX_ADC1_Init();
+  MX_ADC2_Init();
   MX_CORDIC_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
-  MX_MotorControl_Init();
   MX_USART2_UART_Init();
+  MX_MotorControl_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
 
-  	uint8_t CmdBuf[256] = {0};
+    uint8_t CmdBuf[256] = {0};
     uint8_t RspBuf[256] = {0};
-    uint32_t RspLen = 0;
+	uint32_t RspLen = 0;
 
-    GPIO_PinState userButton;
-    float prevDist = 0;
+	GPIO_PinState userButton;
+	float prevDist = 0;
 
-    unsigned long prev_time = 0;
-    unsigned long pres_time = 0;
-    float jogTime = 0;
-    float jogDist = 0;
-    float mm_min_send = 0.0;
+	unsigned long prev_time = 0;
+	unsigned long pres_time = 0;
+	float jogTime = 0;
+	float jogDist = 0;
+//	float mm_min_send = 0.0;
 
-    StdReturn_t stdRet;
-    HAL_UART_Transmit(&huart_MD, (uint8_t *)"Welcome to TCM Motor Drive", 28, UART_TICK_TIMEOUT);
+	StdReturn_t stdRet;
+	HAL_UART_Transmit(&huart_MD, (uint8_t *)"Welcome to TCM Motor Drive", 28, UART_TICK_TIMEOUT);
+
+//	MC_ProgramSpeedRampMotor1(-12*8, 10000);
+//	HAL_Delay(1500);
+//	MC_StartMotor1();
 
   /* USER CODE END 2 */
 
@@ -136,59 +147,59 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_UART_Receive(&huart_MD, CmdBuf, 256, 100);
+  	  HAL_UART_Receive(&huart_MD, CmdBuf, 256, 100);
 
-	  if(CmdBuf[0] != 0)
-	  {
-		  stdRet = Cmd_Process(CmdBuf, RspBuf, &RspLen);
-		  CmdBuf[0] = 0;
+  	  if(CmdBuf[0] != 0)
+  	  {
+  		  stdRet = Cmd_Process(CmdBuf, RspBuf, &RspLen);
+  		  CmdBuf[0] = 0;
 
-		  if(RET_OK != stdRet)
-			  Send_ErrorMsg(stdRet);		// Change to Send_ErrorCode(stdRet) afterwords.
-	  }
+  		  if(RET_OK != stdRet)
+  			  Send_ErrorMsg(stdRet);		// Change to Send_ErrorCode(stdRet) afterwords.
+  	  }
 
-	  userButton = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
-	  if(userButton == GPIO_PIN_SET)
-	  {
-		  prevDist = Motor_GetDistance();
-		  Motor_SetDistance(500);
-		  Motor_Run(false);
+  	  userButton = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+  	  if(userButton == GPIO_PIN_SET)
+  	  {
+  		  prevDist = Motor_GetDistance();
+  		  Motor_SetDistance(500);
+  		  Motor_Run(false);
 
-		  prev_time = HAL_GetTick();
+  		  prev_time = HAL_GetTick();
 
-		  while(1)
-		  {
-			  userButton = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
-			  if(userButton == GPIO_PIN_RESET)
-			  {
-				  pres_time = HAL_GetTick();
-				  jogTime = (pres_time - prev_time) / (1000.0 * 60.0);		// Minutes		// Should be done by calculating the mechanical angle later
-				  jogDist = Motor_GetSpeed() * jogTime * ((Motor_GetDirection()) ? 1 : -1);
-				  Motor_SetZeroPos(Motor_GetZeroPos() - jogDist);
+  		  while(1)
+  		  {
+  			  userButton = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
+  			  if(userButton == GPIO_PIN_RESET)
+  			  {
+  				  pres_time = HAL_GetTick();
+  				  jogTime = (pres_time - prev_time) / (1000.0 * 60.0);		// Minutes		// Should be done by calculating the mechanical angle later
+  				  jogDist = Motor_GetSpeed() * jogTime * ((Motor_GetDirection()) ? 1 : -1);
+  				  Motor_SetZeroPos(Motor_GetZeroPos() - jogDist);
 
-				  HAL_Delay(500);
-				  Motor_Stop(false);
-				  Motor_ResetDriveParams();//MX_MotorControl_Init();
-				  break;
-			  }
-		  }
+  				  HAL_Delay(500);
+  				  Motor_Stop(false);
+  				  Motor_ResetDriveParams();//MX_MotorControl_Init();
+  				  break;
+  			  }
+  		  }
 
-		  Motor_SetDistance(prevDist);
-		  HAL_Delay(500);
-		  Motor_Start();
-	  }
+  		  Motor_SetDistance(prevDist);
+  		  HAL_Delay(500);
+  		  Motor_Start();
+  	  }
 
-	  if((HAL_GetTick() - Motor_GetRunTick() > UART_TICK_TIMEOUT) && (pMCI[M1]->pPosCtrl->PositionCtrlStatus == TC_MOVEMENT_ON_GOING))
-	  {
-		  Motor_SetRunTick(HAL_GetTick());
-		  mm_min_send = (((float)(SpeednTorqCtrlM1.SPD->hAvrMecSpeedUnit))/6.0)*5.08;
-		  sendToPort(&huart_MD, mm_min_send);
-	  }
+//  	  if((HAL_GetTick() - Motor_GetRunTick() > UART_TICK_TIMEOUT) && (pMCI[M1]->CommandState != MCI_COMMAND_EXECUTED_SUCCESSFULLY))
+//  	  {
+//  		  Motor_SetRunTick(HAL_GetTick());
+//  		  mm_min_send = (((float)(SpeednTorqCtrlM1.SPD->hAvrMecSpeedUnit))/6.0)*5.08;
+//  		  sendToPort(&huart_MD, mm_min_send);
+//  	  }
 
-    /* USER CODE END WHILE */
+      /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }
+      /* USER CODE BEGIN 3 */
+    }
   /* USER CODE END 3 */
 }
 
@@ -208,11 +219,12 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV6;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV4;
   RCC_OscInitStruct.PLL.PLLN = 85;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV8;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
@@ -235,10 +247,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-
-  /** Enables the Clock Security System
-  */
-  HAL_RCC_EnableCSS();
 }
 
 /**
@@ -247,6 +255,12 @@ void SystemClock_Config(void)
   */
 static void MX_NVIC_Init(void)
 {
+  /* USART2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(USART2_IRQn, 3, 1);
+  HAL_NVIC_EnableIRQ(USART2_IRQn);
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 3, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
   /* TIM1_BRK_TIM15_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(TIM1_BRK_TIM15_IRQn, 4, 1);
   HAL_NVIC_EnableIRQ(TIM1_BRK_TIM15_IRQn);
@@ -323,7 +337,7 @@ static void MX_ADC1_Init(void)
   sConfigInjected.InjectedSingleDiff = ADC_SINGLE_ENDED;
   sConfigInjected.InjectedOffsetNumber = ADC_OFFSET_NONE;
   sConfigInjected.InjectedOffset = 0;
-  sConfigInjected.InjectedNbrOfConversion = 3;
+  sConfigInjected.InjectedNbrOfConversion = 2;
   sConfigInjected.InjectedDiscontinuousConvMode = DISABLE;
   sConfigInjected.AutoInjectedConv = DISABLE;
   sConfigInjected.QueueInjectedContext = DISABLE;
@@ -339,15 +353,6 @@ static void MX_ADC1_Init(void)
   */
   sConfigInjected.InjectedChannel = ADC_CHANNEL_7;
   sConfigInjected.InjectedRank = ADC_INJECTED_RANK_2;
-  if (HAL_ADCEx_InjectedConfigChannel(&hadc1, &sConfigInjected) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Configure Injected Channel
-  */
-  sConfigInjected.InjectedChannel = ADC_CHANNEL_6;
-  sConfigInjected.InjectedRank = ADC_INJECTED_RANK_3;
   if (HAL_ADCEx_InjectedConfigChannel(&hadc1, &sConfigInjected) != HAL_OK)
   {
     Error_Handler();
@@ -377,6 +382,79 @@ static void MX_ADC1_Init(void)
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
+
+}
+
+/**
+  * @brief ADC2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC2_Init(void)
+{
+
+  /* USER CODE BEGIN ADC2_Init 0 */
+
+  /* USER CODE END ADC2_Init 0 */
+
+  ADC_InjectionConfTypeDef sConfigInjected = {0};
+
+  /* USER CODE BEGIN ADC2_Init 1 */
+
+  /* USER CODE END ADC2_Init 1 */
+
+  /** Common config
+  */
+  hadc2.Instance = ADC2;
+  hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+  hadc2.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc2.Init.DataAlign = ADC_DATAALIGN_LEFT;
+  hadc2.Init.GainCompensation = 0;
+  hadc2.Init.ScanConvMode = ADC_SCAN_ENABLE;
+  hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  hadc2.Init.LowPowerAutoWait = DISABLE;
+  hadc2.Init.ContinuousConvMode = DISABLE;
+  hadc2.Init.NbrOfConversion = 1;
+  hadc2.Init.DiscontinuousConvMode = DISABLE;
+  hadc2.Init.DMAContinuousRequests = DISABLE;
+  hadc2.Init.Overrun = ADC_OVR_DATA_PRESERVED;
+  hadc2.Init.OversamplingMode = DISABLE;
+  if (HAL_ADC_Init(&hadc2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Injected Channel
+  */
+  sConfigInjected.InjectedChannel = ADC_CHANNEL_7;
+  sConfigInjected.InjectedRank = ADC_INJECTED_RANK_1;
+  sConfigInjected.InjectedSamplingTime = ADC_SAMPLETIME_6CYCLES_5;
+  sConfigInjected.InjectedSingleDiff = ADC_SINGLE_ENDED;
+  sConfigInjected.InjectedOffsetNumber = ADC_OFFSET_NONE;
+  sConfigInjected.InjectedOffset = 0;
+  sConfigInjected.InjectedNbrOfConversion = 2;
+  sConfigInjected.InjectedDiscontinuousConvMode = DISABLE;
+  sConfigInjected.AutoInjectedConv = DISABLE;
+  sConfigInjected.QueueInjectedContext = DISABLE;
+  sConfigInjected.ExternalTrigInjecConv = ADC_EXTERNALTRIGINJEC_T1_TRGO;
+  sConfigInjected.ExternalTrigInjecConvEdge = ADC_EXTERNALTRIGINJECCONV_EDGE_RISING;
+  sConfigInjected.InjecOversamplingMode = DISABLE;
+  if (HAL_ADCEx_InjectedConfigChannel(&hadc2, &sConfigInjected) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Injected Channel
+  */
+  sConfigInjected.InjectedChannel = ADC_CHANNEL_6;
+  sConfigInjected.InjectedRank = ADC_INJECTED_RANK_2;
+  if (HAL_ADCEx_InjectedConfigChannel(&hadc2, &sConfigInjected) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC2_Init 2 */
+
+  /* USER CODE END ADC2_Init 2 */
 
 }
 
@@ -558,34 +636,58 @@ static void MX_TIM2_Init(void)
   */
 static void MX_USART2_UART_Init(void)
 {
-	huart_MD.Instance = USART2;
-	huart_MD.Init.BaudRate = 115200;
-	huart_MD.Init.WordLength = UART_WORDLENGTH_8B;
-	huart_MD.Init.StopBits = UART_STOPBITS_1;
-	huart_MD.Init.Parity = UART_PARITY_NONE;
-	huart_MD.Init.Mode = UART_MODE_TX_RX;
-	huart_MD.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart_MD.Init.OverSampling = UART_OVERSAMPLING_16;
-	huart_MD.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-	huart_MD.Init.ClockPrescaler = UART_PRESCALER_DIV1;
-	huart_MD.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-	if (HAL_UART_Init(&huart_MD) != HAL_OK)
-	{
-	Error_Handler();
-	}
-	if (HAL_UARTEx_SetTxFifoThreshold(&huart_MD, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
-	{
-	Error_Handler();
-	}
-	if (HAL_UARTEx_SetRxFifoThreshold(&huart_MD, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
-	{
-	Error_Handler();
-	}
-	if (HAL_UARTEx_DisableFifoMode(&huart_MD) != HAL_OK)
-	{
-	Error_Handler();
-	}
+
+  /* USER CODE BEGIN USART2_Init 0 */
+
+  /* USER CODE END USART2_Init 0 */
+
+  /* USER CODE BEGIN USART2_Init 1 */
+
+  /* USER CODE END USART2_Init 1 */
+  huart_MD.Instance = USART2;
+  huart_MD.Init.BaudRate = 115200;
+  huart_MD.Init.WordLength = UART_WORDLENGTH_8B;
+  huart_MD.Init.StopBits = UART_STOPBITS_1;
+  huart_MD.Init.Parity = UART_PARITY_NONE;
+  huart_MD.Init.Mode = UART_MODE_TX_RX;
+  huart_MD.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart_MD.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart_MD.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart_MD.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart_MD.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart_MD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart_MD, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart_MD, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart_MD) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART2_Init 2 */
+
+  /* USER CODE END USART2_Init 2 */
+
 }
+
+/**
+  * Enable DMA controller clock
+  */
+//static void MX_DMA_Init(void)
+//{
+//
+//  /* DMA controller clock enable */
+//  __HAL_RCC_DMAMUX1_CLK_ENABLE();
+//  __HAL_RCC_DMA1_CLK_ENABLE();
+//
+//}
 
 /**
   * @brief GPIO Initialization Function

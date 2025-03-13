@@ -32,6 +32,7 @@
 #include "pwm_common.h"
 #include "mc_tasks.h"
 #include "parameters_conversion.h"
+#include "mcp_config.h"
 #include "mc_app_hooks.h"
 
 /* USER CODE BEGIN Includes */
@@ -88,7 +89,7 @@ __weak void FOC_Init(void)
     /*    PWM and current sensing component initialization    */
     /**********************************************************/
     pwmcHandle[M1] = &PWM_Handle_M1._Super;
-    R3_1_Init(&PWM_Handle_M1);
+    R3_2_Init(&PWM_Handle_M1);
 
     /* USER CODE BEGIN MCboot 1 */
 
@@ -114,12 +115,6 @@ __weak void FOC_Init(void)
     /******************************************************/
     EAC_Init(&EncAlignCtrlM1,pSTC[M1],&VirtualSpeedSensorM1,&ENCODER_M1);
     pEAC[M1] = &EncAlignCtrlM1;
-
-    /******************************************************/
-    /*   Position Control component initialization        */
-    /******************************************************/
-    PID_HandleInit(&PID_PosParamsM1);
-    TC_Init(&PosCtrlM1, &PID_PosParamsM1, &SpeednTorqCtrlM1, &ENCODER_M1);
 
     /******************************************************/
     /*   Speed & torque component initialization          */
@@ -160,7 +155,7 @@ __weak void FOC_Init(void)
  */
 void TSK_MF_StopProcessing(uint8_t motor)
 {
-    R3_1_SwitchOffPWM(pwmcHandle[motor]);
+    R3_2_SwitchOffPWM(pwmcHandle[motor]);
 
   FOC_Clear(motor);
 
@@ -207,7 +202,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               /* Calibration already done. Enables only TIM channels */
               pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
               (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
-              R3_1_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
+              R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
               Mci[M1].State = CHARGE_BOOT_CAP;
             }
@@ -237,7 +232,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               }
               else
               {
-                R3_1_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
+                R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
                 TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
                 Mci[M1].State = CHARGE_BOOT_CAP;
               }
@@ -260,7 +255,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
           {
             if (TSK_ChargeBootCapDelayHasElapsedM1())
             {
-              R3_1_SwitchOffPWM(pwmcHandle[M1]);
+              R3_2_SwitchOffPWM(pwmcHandle[M1]);
               FOCVars[M1].bDriveInput = EXTERNAL;
               STC_SetSpeedSensor( pSTC[M1], &VirtualSpeedSensorM1._Super );
 
@@ -312,11 +307,11 @@ __weak void TSK_MediumFrequencyTaskM1(void)
             }
             else
             {
-              R3_1_SwitchOffPWM( pwmcHandle[M1] );
+              R3_2_SwitchOffPWM( pwmcHandle[M1] );
               STC_SetControlMode(pSTC[M1], MCM_SPEED_MODE);
               STC_SetSpeedSensor(pSTC[M1], &ENCODER_M1._Super);
               FOC_Clear(M1);
-              R3_1_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
+              R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
               TSK_SetStopPermanencyTimeM1(STOPPERMANENCY_TICKS);
               Mci[M1].State = WAIT_STOP_MOTOR;
               /* USER CODE BEGIN MediumFrequencyTask M1 EndOfEncAlignment */
@@ -339,7 +334,6 @@ __weak void TSK_MediumFrequencyTaskM1(void)
 
             /* USER CODE END MediumFrequencyTask M1 2 */
 
-            TC_PositionRegulation(pPosCtrl[M1]);
             MCI_ExecBufferedCommands(&Mci[M1]);
 
               FOC_CalcCurrRef(M1);
@@ -396,8 +390,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
             if (TSK_StopPermanencyTimeHasElapsedM1())
             {
               ENC_Clear(&ENCODER_M1);
-              R3_1_SwitchOnPWM(pwmcHandle[M1]);
-              TC_EncAlignmentCommand(pPosCtrl[M1]);
+              R3_2_SwitchOnPWM(pwmcHandle[M1]);
               FOC_InitAdditionalMethods(M1);
               STC_ForceSpeedReferenceToCurrentSpeed(pSTC[M1]); /* Init the reference speed to current speed */
               MCI_ExecBufferedCommands(&Mci[M1]); /* Exec the speed ramp after changing of the speed sensor */

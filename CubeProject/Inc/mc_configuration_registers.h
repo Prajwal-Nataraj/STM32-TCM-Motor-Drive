@@ -115,10 +115,10 @@ typedef struct
 
 /* MCP_Flag definition */
 #define FLAG_MCP_OVER_STLINK       0U
-#define FLAG_MCP_OVER_UARTA        0U
+#define FLAG_MCP_OVER_UARTA        (1U << 1U)
 #define FLAG_MCP_OVER_UARTB        0U
 
-#define configurationFlag1_M1     (POSITION_CTRL_FLAG|VBUS_SENSING_FLAG|TEMP_SENSING_FLAG)
+#define configurationFlag1_M1     (VBUS_SENSING_FLAG|TEMP_SENSING_FLAG)
 #define configurationFlag2_M1     (0U)
 
 #define DRIVE_TYPE_M1              0

@@ -102,30 +102,6 @@ PID_Handle_t PIDIdHandle_M1 =
   .hKdDivisorPOW2      = 0x0000U,
 };
 
-PID_Handle_t PID_PosParamsM1 =
-{
-  .hDefKpGain          = (int16_t)PID_POSITION_KP_GAIN,
-  .hDefKiGain          = (int16_t)PID_POSITION_KI_GAIN,
-  .hDefKdGain          = (int16_t)PID_POSITION_KD_GAIN,
-  .wUpperIntegralLimit = (int32_t)(NOMINAL_CURRENT * PID_POSITION_KIDIV),
-  .wLowerIntegralLimit = (int32_t)(-NOMINAL_CURRENT * PID_POSITION_KIDIV),
-  .hUpperOutputLimit   = (int16_t)NOMINAL_CURRENT,
-  .hLowerOutputLimit   = -(int16_t)NOMINAL_CURRENT,
-  .hKpDivisor          = (uint16_t)PID_POSITION_KPDIV,
-  .hKiDivisor          = (uint16_t)PID_POSITION_KIDIV,
-  .hKdDivisor          = (uint16_t)PID_POSITION_KDDIV,
-  .hKpDivisorPOW2      = (uint16_t)PID_POSITION_KPDIV_LOG,
-  .hKiDivisorPOW2      = (uint16_t)PID_POSITION_KIDIV_LOG,
-  .hKdDivisorPOW2      = (uint16_t)PID_POSITION_KDDIV_LOG,
-};
-
-PosCtrl_Handle_t PosCtrlM1 =
-{
-  .SamplingTime  = 1.0f/MEDIUM_FREQUENCY_TASK_RATE,
-  .SysTickPeriod = 1.0f/SYS_TICK_FREQUENCY,
-  .AlignmentCfg  = TC_ABSOLUTE_ALIGNMENT_NOT_SUPPORTED,
-};
-
 /**
   * @brief  SpeednTorque Controller parameters Motor 1.
   */
@@ -144,25 +120,24 @@ SpeednTorqCtrl_Handle_t SpeednTorqCtrlM1 =
   .IdrefDefault               = (int16_t)DEFAULT_FLUX_COMPONENT,
 };
 
-/**
-  * @brief  PWM parameters Motor 1 for one ADC.
-  */
-PWMC_R3_1_Handle_t PWM_Handle_M1 =
+PWMC_R3_2_Handle_t PWM_Handle_M1 =
 {
+  ._Super =
   {
-    .pFctGetPhaseCurrents       = &R3_1_GetPhaseCurrents,
-    .pFctSetADCSampPointSectX   = &R3_1_SetADCSampPointSectX,
-    .pFctSetOffsetCalib         = &R3_1_SetOffsetCalib,
-    .pFctGetOffsetCalib         = &R3_1_GetOffsetCalib,
-    .pFctSwitchOffPwm           = &R3_1_SwitchOffPWM,
-    .pFctSwitchOnPwm            = &R3_1_SwitchOnPWM,
-    .pFctCurrReadingCalib       = &R3_1_CurrentReadingPolarization,
-    .pFctTurnOnLowSides         = &R3_1_TurnOnLowSides,
+    .pFctGetPhaseCurrents       = &R3_2_GetPhaseCurrents,
+    .pFctSetADCSampPointSectX   = &R3_2_SetADCSampPointSectX,
+    .pFctSetOffsetCalib         = &R3_2_SetOffsetCalib,
+    .pFctGetOffsetCalib         = &R3_2_GetOffsetCalib,
+    .pFctSwitchOffPwm           = &R3_2_SwitchOffPWM,
+    .pFctSwitchOnPwm            = &R3_2_SwitchOnPWM,
+    .pFctCurrReadingCalib       = &R3_2_CurrentReadingPolarization,
+    .pFctTurnOnLowSides         = &R3_2_TurnOnLowSides,
     .pFctOCPSetReferenceVoltage = MC_NULL,
-    .pFctRLDetectionModeEnable  = &R3_1_RLDetectionModeEnable,
-    .pFctRLDetectionModeDisable = &R3_1_RLDetectionModeDisable,
-    .pFctRLDetectionModeSetDuty = &R3_1_RLDetectionModeSetDuty,
-    .pFctRLTurnOnLowSidesAndStart = &R3_1_RLTurnOnLowSidesAndStart,
+    .pFctRLDetectionModeEnable  = &R3_2_RLDetectionModeEnable,
+    .pFctRLDetectionModeDisable = &R3_2_RLDetectionModeDisable,
+    .pFctRLDetectionModeSetDuty = &R3_2_RLDetectionModeSetDuty,
+    .pFctRLTurnOnLowSidesAndStart = &R3_2_RLTurnOnLowSidesAndStart,
+    .hT_Sqrt3                   = (PWM_PERIOD_CYCLES*SQRT3FACTOR)/16384u,
     .LowSideOutputs    = (LowSideOutputsFunction_t)LOW_SIDE_SIGNALS_ENABLING,
     .pwm_en_u_port     = MC_NULL,
     .pwm_en_u_pin      = (uint16_t)0,
@@ -170,8 +145,10 @@ PWMC_R3_1_Handle_t PWM_Handle_M1 =
     .pwm_en_v_pin      = (uint16_t)0,
     .pwm_en_w_port     = MC_NULL,
     .pwm_en_w_pin      = (uint16_t)0,
-    .hT_Sqrt3                   = (PWM_PERIOD_CYCLES*SQRT3FACTOR)/16384u,
     .Sector                     = 0,
+    .lowDuty                    = (uint16_t)0,
+    .midDuty                    = (uint16_t)0,
+    .highDuty                   = (uint16_t)0,
     .CntPhA                     = 0,
     .CntPhB                     = 0,
     .CntPhC                     = 0,
@@ -195,15 +172,15 @@ PWMC_R3_1_Handle_t PWM_Handle_M1 =
     .driverProtectionFlag       = false,
   },
 
+  .Half_PWMPeriod               = PWM_PERIOD_CYCLES/2u,
   .PhaseAOffset                 = 0,
   .PhaseBOffset                 = 0,
   .PhaseCOffset                 = 0,
-  .Half_PWMPeriod               = PWM_PERIOD_CYCLES / 2u,
-  .ADC_ExternalPolarityInjected = 0,
-  .PolarizationCounter = 0,
-  .PolarizationSector = 0,
-  .ADCRegularLocked = false,
-  .pParams_str                  = &R3_1_ParamsM1
+  .ADC_ExternalPolarityInjected = (uint8_t)0,
+  .PolarizationCounter          = (uint8_t)0,
+  .PolarizationSector           = (uint8_t)0,
+  .ADCRegularLocked             = false,
+  .pParams_str                  = &R3_2_ParamsM1
 };
 
 /** RAMP for Motor1
@@ -230,14 +207,12 @@ NTC_Handle_t *pTemperatureSensor[NBR_OF_MOTORS] = {&TempSensor_M1};
 PID_Handle_t *pPIDIq[NBR_OF_MOTORS]             = {&PIDIqHandle_M1};
 PID_Handle_t *pPIDId[NBR_OF_MOTORS]             = {&PIDIdHandle_M1};
 PQD_MotorPowMeas_Handle_t *pMPM[NBR_OF_MOTORS]  = {&PQD_MotorPowMeasM1};
-PosCtrl_Handle_t *pPosCtrl[NBR_OF_MOTORS]       = {&PosCtrlM1};
 
 MCI_Handle_t Mci[NBR_OF_MOTORS] =
 {
   {
     .pSTC = &SpeednTorqCtrlM1,
     .pFOCVars = &FOCVars[0],
-    .pPosCtrl = &PosCtrlM1,
     .pPWM = &PWM_Handle_M1._Super,
     .lastCommand = MCI_NOCOMMANDSYET,
     .hFinalSpeed = 0,

@@ -75,7 +75,8 @@
 #define PID_SPEED_KI_DEFAULT                1110/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
 #define PID_SPEED_KD_DEFAULT                0/(SPEED_UNIT/10) /* Workbench compute the gain for 01Hz unit*/
 
-#define POSITION_LOOP_FREQUENCY_HZ          (uint16_t)2000 /*!< Execution rate of position control regulation loop (Hz) */
+/* Speed control loop */
+#define SPEED_LOOP_FREQUENCY_HZ             (uint16_t)2000 /*!<Execution rate of speed regulation loop (Hz) */
 
 /* Speed PID parameter dividers */
 #define SP_KPDIV                            256
@@ -98,18 +99,6 @@
 #define DEFAULT_TARGET_SPEED_UNIT           (DEFAULT_TARGET_SPEED_RPM*SPEED_UNIT/U_RPM)
 #define DEFAULT_TORQUE_COMPONENT_A          0
 #define DEFAULT_FLUX_COMPONENT_A            0
-
-#define PID_POSITION_KP_GAIN                10000
-#define PID_POSITION_KI_GAIN                1000
-#define PID_POSITION_KD_GAIN                1000
-#define PID_POSITION_KPDIV                  1024
-#define PID_POSITION_KIDIV                  32768
-#define PID_POSITION_KDDIV                  16
-#define PID_POSITION_KPDIV_LOG              LOG2((1024))
-#define PID_POSITION_KIDIV_LOG              LOG2((32768))
-#define PID_POSITION_KDDIV_LOG              LOG2((16))
-#define PID_POSITION_ANGLE_STEP             10.0
-#define PID_POSITION_MOV_DURATION           10.0
 
 /**************************    FIRMWARE PROTECTIONS SECTION   *****************/
 #define OV_VOLTAGE_THRESHOLD_V              29 /*!< Over-voltage threshold */

@@ -107,7 +107,7 @@ void TIMx_UP_M1_IRQHandler(void)
  /* USER CODE END  TIMx_UP_M1_IRQn 0 */
 
   LL_TIM_ClearFlag_UPDATE(TIM1);
-  (void)R3_1_TIMx_UP_IRQHandler(&PWM_Handle_M1);
+  (void)R3_2_TIMx_UP_IRQHandler(&PWM_Handle_M1);
 
  /* USER CODE BEGIN TIMx_UP_M1_IRQn 1 */
 
