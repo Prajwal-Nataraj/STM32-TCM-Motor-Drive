@@ -287,47 +287,6 @@ __weak void MCI_SetCurrentReferences_F(MCI_Handle_t *pHandle, qd_f_t IqdRef)
 }
 
 /**
-  * @brief  Programs a motor position ramp
-  *
-  * @param  pHandle Pointer on the component instance to work on.
-  * @param  FinalPosition The desired rotor position in radians.
-  * @param  Duration The duration of the movement to reach the final position, in seconds.
-  *
-  *  This command is executed immediately if the target motor's state machine is in
-  * the #RUN state. Otherwise, it is buffered and its execution is delayed until This
-  * state is reached.
-  *
-  * Users can check the status of the command by calling the MCI_IsCommandAcknowledged()
-  * function.
-  */
-__weak void MCI_ExecPositionCommand(MCI_Handle_t *pHandle, float_t FinalPosition, float_t Duration)
-{
-#ifdef NULL_PTR_CHECK_MC_INT
-  if (MC_NULL == pHandle)
-  {
-    /* Nothing to do */
-  }
-  else
-  {
-#endif
-    pHandle->pFOCVars->bDriveInput = INTERNAL;
-    float_t currentPositionRad = (float_t)(SPD_GetMecAngle(STC_GetSpeedSensor(pHandle->pSTC))) / RADTOS16;
-    if (Duration > 0)
-    {
-      TC_MoveCommand(pHandle->pPosCtrl, currentPositionRad, FinalPosition/* - currentPositionRad*/, Duration);
-    }
-    else
-    {
-      TC_FollowCommand(pHandle->pPosCtrl, FinalPosition);
-    }
-
-    pHandle->LastModalitySetByUser = MCM_TORQUE_MODE;
-#ifdef NULL_PTR_CHECK_MC_INT
-  }
-#endif
-}
-
-/**
   * @brief  Initiates a motor startup procedure
   *
   * @param  pHandle Handle on the target motor interface structure
@@ -826,76 +785,6 @@ __weak MCI_State_t MCI_GetSTMState(MCI_Handle_t *pHandle) //cstat !MISRAC2012-Ru
   return ((MC_NULL == pHandle) ? FAULT_NOW : pHandle->State);
 #else
   return (pHandle->State);
-#endif
-}
-
-/**
-  * @brief  It returns information about the state of the position control.
-  * @param  pHandle Pointer on the component instance to work on.
-  * @retval State_t It returns the current state position control execution.
-  */
-__weak PosCtrlStatus_t MCI_GetCtrlPositionState(MCI_Handle_t *pHandle) //cstat !MISRAC2012-Rule-8.13
-{
-#ifdef NULL_PTR_CHECK_MC_INT
-  return ((MC_NULL == pHandle) ? TC_FOLLOWING_ON_GOING : TC_GetControlPositionStatus(pHandle->pPosCtrl));
-#else
-  return (TC_GetControlPositionStatus(pHandle->pPosCtrl));
-#endif
-}
-
-/**
-  * @brief  It returns information about the rotor alignment procedure.
-  * @param  pHandle Pointer on the component instance to work on.
-  * @retval State_t It returns the current state of the alignment.
-  */
-__weak AlignStatus_t MCI_GetAlignmentStatus(MCI_Handle_t *pHandle) //cstat !MISRAC2012-Rule-8.13
-{
-#ifdef NULL_PTR_CHECK_MC_INT
-  return ((MC_NULL == pHandle) ? TC_ALIGNMENT_ERROR : TC_GetAlignmentStatus(pHandle->pPosCtrl));
-#else
-  return ((TC_GetAlignmentStatus(pHandle->pPosCtrl)));
-#endif
-}
-
-/**
-  * @brief  It returns the current position of the rotor.
-  * @param  pHandle Pointer on the component instance to work on.
-  * @retval float_t It returns the current mechanical angular position of the rotor.
-  */
-__weak float_t MCI_GetCurrentPosition(MCI_Handle_t *pHandle) //cstat !MISRAC2012-Rule-8.13
-{
-#ifdef NULL_PTR_CHECK_MC_INT
-  return ((MC_NULL == pHandle) ? 0 : TC_GetCurrentPosition(pHandle->pPosCtrl));
-#else
-  return (TC_GetCurrentPosition(pHandle->pPosCtrl));
-#endif
-}
-
-/**
-  * @brief  It returns the final position asked to the motor.
-  * @param  pHandle Pointer on the component instance to work on.
-  * @retval float_t It returns the target mechanical angular position of the rotor.
-  */
-__weak float_t MCI_GetTargetPosition(MCI_Handle_t *pHandle) //cstat !MISRAC2012-Rule-8.13
-{
-#ifdef NULL_PTR_CHECK_MC_INT
-  return ((MC_NULL == pHandle) ? 0 : TC_GetTargetPosition(pHandle->pPosCtrl));
-#else
-  return (TC_GetTargetPosition(pHandle->pPosCtrl));
-#endif
-}
-
-/**
-  * @brief  It returns the total movement duration to reach the final position.
-  * @param  pHandle Pointer on the component instance to work on.
-  * @retval float_t It returns the movement duration allowed to reach the target position.
-  */
-__weak float_t MCI_GetMoveDuration(MCI_Handle_t *pHandle) //cstat !MISRAC2012-Rule-8.13
-{
-#ifdef NULL_PTR_CHECK_MC_INT
-  return ((MC_NULL == pHandle) ? 0 : TC_GetMoveDuration(pHandle->pPosCtrl));
-#else
-  return (TC_GetMoveDuration(pHandle->pPosCtrl));
 #endif
 }
 

@@ -100,7 +100,7 @@ bool Motor_Start(void)
 {
 	MC_StartMotor1();
 	HAL_Delay(1500);
-	while(MC_GetAlignmentStatusMotor1() != TC_ALIGNMENT_COMPLETED){}
+//	while(MC_GetAlignmentStatusMotor1() != TC_ALIGNMENT_COMPLETED){}
 
 	return true;
 }
@@ -120,17 +120,19 @@ bool Motor_Stop(bool ready)
 /* Start the Vertical Movement (post Motor_Start()) */
 bool Motor_Run(bool updateZeroPos)
 {
-	float rot = 0, set_rot = 0;
-	float pos = 0, time = 0;
+//	float rot = 0, set_rot = 0;
+	float speed = 0, time = 0;
 
-	rot = (Motor.distance) * (GEAR_RATIO / MM_PER_THREAD);
-	set_rot = (rot + 0.058) / 1.5001;
-	pos = (set_rot * 2 * M_PI) * ((Motor.direction) ? 1 : -1);
+//	rot = (Motor.distance) * (GEAR_RATIO / MM_PER_THREAD);
+//	set_rot = (rot + 0.058) / 1.5001;
+//	pos = (set_rot * 2 * M_PI) * ((Motor.direction) ? 1 : -1);
+	speed = (float)(Motor.speed * ((Motor.direction) ? 1 :-1)) * (float)(6.0 / 5.08);
 	time = 60.0 * (Motor.distance / Motor.speed);
 
 	HAL_Delay(500);
 
-	MC_ProgramPositionCommandMotor1(pos, time);
+//	MC_ProgramPositionCommandMotor1(pos, time);
+	MC_ProgramSpeedRampMotor1(speed, time);
 	sendSpeed.prev_time_send = HAL_GetTick();
 
 	if(updateZeroPos)

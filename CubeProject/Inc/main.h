@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2024 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -73,6 +73,10 @@ void Error_Handler(void);
 #define M1_CURR_AMPL_U_GPIO_Port GPIOA
 #define M1_BUS_VOLTAGE_Pin GPIO_PIN_1
 #define M1_BUS_VOLTAGE_GPIO_Port GPIOA
+#define UART_TX_Pin GPIO_PIN_2
+#define UART_TX_GPIO_Port GPIOA
+#define UART_RX_Pin GPIO_PIN_3
+#define UART_RX_GPIO_Port GPIOA
 #define M1_OCP_Pin GPIO_PIN_6
 #define M1_OCP_GPIO_Port GPIOA
 #define M1_PWM_UL_Pin GPIO_PIN_7

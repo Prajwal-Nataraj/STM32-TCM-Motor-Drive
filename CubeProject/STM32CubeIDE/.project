@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>TCM PI Tuning</name>
+	<name>TCM Load Tuning</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -31,9 +31,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>TCM PI Tuning.ioc</name>
+			<name>TCM Load Tuning.ioc</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/TCM%20PI%20Tuning.ioc</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/TCM%20Load%20Tuning.ioc</locationURI>
+		</link>
+		<link>
+			<name>Application/User/aspep.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/aspep.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/main.c</name>
@@ -96,6 +101,16 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Src/mc_tasks_foc.c</locationURI>
 		</link>
 		<link>
+			<name>Application/User/mcp.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/mcp.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/mcp_config.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/mcp_config.c</locationURI>
+		</link>
+		<link>
 			<name>Application/User/motorcontrol.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/motorcontrol.c</locationURI>
@@ -109,6 +124,11 @@
 			<name>Application/User/pwm_curr_fdbk.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/pwm_curr_fdbk.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/register_interface.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/register_interface.c</locationURI>
 		</link>
 		<link>
 			<name>Application/User/regular_conversion_manager.c</name>
@@ -134,6 +154,11 @@
 			<name>Application/User/stm32g4xx_mc_it.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Src/stm32g4xx_mc_it.c</locationURI>
+		</link>
+		<link>
+			<name>Application/User/usart_aspep_driver.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Src/usart_aspep_driver.c</locationURI>
 		</link>
 		<link>
 			<name>Drivers/CMSIS/system_stm32g4xx.c</name>
@@ -271,6 +296,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/Any/Src/encoder_speed_pos_fdbk.c</locationURI>
 		</link>
 		<link>
+			<name>Middlewares/MotorControl/mcpa.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/Any/Src/mcpa.c</locationURI>
+		</link>
+		<link>
 			<name>Middlewares/MotorControl/ntc_temperature_sensor.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/Any/Src/ntc_temperature_sensor.c</locationURI>
@@ -291,9 +321,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c</locationURI>
 		</link>
 		<link>
-			<name>Middlewares/MotorControl/r3_1_g4xx_pwm_curr_fdbk.c</name>
+			<name>Middlewares/MotorControl/r3_2_g4xx_pwm_curr_fdbk.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/G4xx/Src/r3_1_g4xx_pwm_curr_fdbk.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/G4xx/Src/r3_2_g4xx_pwm_curr_fdbk.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/MotorControl/r_divider_bus_voltage_sensor.c</name>
@@ -319,11 +349,6 @@
 			<name>Middlewares/MotorControl/speed_torq_ctrl.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/Any/Src/speed_torq_ctrl.c</locationURI>
-		</link>
-		<link>
-			<name>Middlewares/MotorControl/trajectory_ctrl.c</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/MCSDK_v6.3.0-Full/MotorControl/MCSDK/MCLib/Any/Src/trajectory_ctrl.c</locationURI>
 		</link>
 		<link>
 			<name>Middlewares/MotorControl/virtual_speed_sensor.c</name>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <STWorkBench>
     <defines>
-        <define key="ADC_AHBPERIPH" value="RCC_AHBPeriph_ADC1" />
+        <define key="ADC_1_PERIPH" value="ADC1" />
+        <define key="ADC_2_PERIPH" value="ADC2" />
+        <define key="ADC_AHBPERIPH" value="RCC_AHBPeriph_ADC12" />
         <define key="ADC_CLOCK_WB_DIV" value="1" />
         <define key="ADC_PERIPH" value="ADC1" />
         <define key="ADC_REFERENCE_VOLTAGE" value="3.3" />
@@ -13,10 +15,10 @@
         <define key="CPU_CLK_170_MHZ" value="TRUE" />
         <define key="CTLBOARD_NAME" value="NUCLEO-G474RE" />
         <define key="CURR_SAMPLING_TIME" value="6" />
-        <define key="CURRENT_READING_TOPOLOGY" value="THREE_SHUNT" />
+        <define key="CURRENT_READING_TOPOLOGY" value="THREE_SHUNT_INDEPENDENT_RESOURCES" />
         <define key="DBG_MCU_LOAD_MEASURE" value="FALSE" />
         <define key="DEBUG_DAC_FUNCTIONALITY_EN" value="DISABLE" />
-        <define key="DMA_FULL_REQS" value="[]" />
+        <define key="DMA_FULL_REQS" value="[{'_tag':'all','dma_request':'USART2_RX','channel':'DMA1_Channel1','mem_inc':'ENABLE','alignment':'BYTE','mode':'NORMAL','priority':'LOW','direction':'DMA_PERIPH_TO_MEMORY','irq_priority':3,'needToSet_irq':true,'irq_name_full':'DMA1_Channel1_IRQn','irq_name':'DMA1_Channel1'},{'_tag':'all','dma_request':'USART2_TX','channel':'DMA1_Channel2','mem_inc':'ENABLE','alignment':'BYTE','mode':'NORMAL','priority':'LOW','direction':'DMA_MEMORY_TO_PERIPH','irq_priority':3,'needToSet_irq':false,'irq_name_full':'','irq_name':''}]" />
         <define key="DRIVE_NUMBER" value="1" />
         <define key="DRIVE_TYPE" value="FOC" />
         <define key="DRIVES_NUMBER_SELECTION" value="SINGLEDRIVE" />
@@ -59,11 +61,11 @@
         <define key="M1_CONSTANT1_D" value="499039" />
         <define key="M1_CONSTANT1_Q" value="408714" />
         <define key="M1_CONSTANT2_QD" value="92859" />
-        <define key="M1_CS_ADC_NUM" value="1" />
-        <define key="M1_CS_ADC_PHASE_SHARED" value="NONE" />
+        <define key="M1_CS_ADC_NUM" value="2" />
+        <define key="M1_CS_ADC_PHASE_SHARED" value="V" />
         <define key="M1_CS_ADC_U" value="ADC1" />
-        <define key="M1_CS_ADC_V" value="ADC1" />
-        <define key="M1_CS_ADC_W" value="ADC1" />
+        <define key="M1_CS_ADC_W" value="ADC2" />
+        <define key="M1_CS_CHANNEL_SHARED" value="7" />
         <define key="M1_CS_CHANNEL_U" value="1" />
         <define key="M1_CS_CHANNEL_V" value="7" />
         <define key="M1_CS_CHANNEL_W" value="6" />
@@ -142,14 +144,7 @@
         <define key="M1_PID_TORQUE_KI_DEFAULT" value="3100" />
         <define key="M1_PID_TORQUE_KP_DEFAULT" value="1300" />
         <define key="M1_POLE_PAIR_NUM" value="2" />
-        <define key="M1_POSITION_CTRL_ENABLING" value="ENABLE" />
-        <define key="M1_POSITION_CTRL_KD_GAIN" value="1000" />
-        <define key="M1_POSITION_CTRL_KDDIV" value="16" />
-        <define key="M1_POSITION_CTRL_KI_GAIN" value="1000" />
-        <define key="M1_POSITION_CTRL_KIDIV" value="32768" />
-        <define key="M1_POSITION_CTRL_KP_GAIN" value="10000" />
-        <define key="M1_POSITION_CTRL_KPDIV" value="1024" />
-        <define key="M1_POSITION_LOOP_FREQUENCY_HZ" value="2000" />
+        <define key="M1_POSITION_CTRL_ENABLING" value="DISABLE" />
         <define key="M1_POTENTIOMETER_ENABLE" value="FALSE" />
         <define key="M1_POWERBOARD_NAME" value="X-NUCLEO-IHM08M1" />
         <define key="M1_PWM_CHARGE_BOOT_CAP_DUTY_CYCLES" value="0.000" />
@@ -168,6 +163,7 @@
         <define key="M1_SP_KIDIV" value="256" />
         <define key="M1_SP_KPDIV" value="256" />
         <define key="M1_SPD_DIFFERENTIAL_TERM_ENABLING" value="DISABLE" />
+        <define key="M1_SPEED_LOOP_FREQUENCY_HZ" value="2000" />
         <define key="M1_SPEED_SENSOR" value="QUAD_ENCODER" />
         <define key="M1_SS_MEAS_ERRORS_BEFORE_FAULTS" value="3" />
         <define key="M1_SW_DEADTIME_NS" value="850" />
@@ -192,7 +188,25 @@
         <define key="M1_VBUS_PARTITIONING_FACTOR" value="0.052164840897235255" />
         <define key="MAX_READABLE_CURRENT" value="31.845" />
         <define key="MC_WORKBENCH_VERSION" value="6.3.0" />
-        <define key="MCP_EN" value="FALSE" />
+        <define key="MCP_ASPEP_OVER_UART" value="TRUE" />
+        <define key="MCP_ASYNC_EN" value="TRUE" />
+        <define key="MCP_ASYNC_OVER_ASPEP_EN" value="TRUE" />
+        <define key="MCP_ASYNC_OVER_UART_A_EN" value="TRUE" />
+        <define key="MCP_DMA_RX_UART_A" value="DMA1" />
+        <define key="MCP_DMA_TX_UART_A" value="DMA1" />
+        <define key="MCP_DMACH_RX_UART_A" value="1" />
+        <define key="MCP_DMACH_TX_UART_A" value="2" />
+        <define key="MCP_EN" value="TRUE" />
+        <define key="MCP_IRQ_HANDLER_DMA_RX_UART_A" value="DMA1_Channel1_IRQHandler" />
+        <define key="MCP_IRQ_HANDLER_UART_A" value="USART2_IRQHandler" />
+        <define key="MCP_OVER_ASPEP_EN" value="TRUE" />
+        <define key="MCP_OVER_STLNK_EN" value="FALSE" />
+        <define key="MCP_OVER_UART_A_EN" value="TRUE" />
+        <define key="MCP_OVER_UART_B_EN" value="FALSE" />
+        <define key="MCP_RX_SYNC_PAYLOAD_MAX" value="128" />
+        <define key="MCP_TX_ASYNC_PAYLOAD_MAX_UART_A" value="2048" />
+        <define key="MCP_TX_SYNC_PAYLOAD_MAX" value="128" />
+        <define key="MCPA_OVER_UART_A_STREAM" value="10" />
         <define key="MCU" value="STM32G474RE" />
         <define key="MCU_FAMILY" value="STM32G4" />
         <define key="MCU_LINE" value="STM32G4x4" />
@@ -219,13 +233,17 @@
         <define key="PHASE_V_CURR_CHANNEL" value="ADC_Channel_7" />
         <define key="PHASE_V_GPIO_PIN" value="GPIO_Pin_1" />
         <define key="PHASE_V_GPIO_PORT" value="GPIOC" />
+        <define key="PHASE_V_S_CURR_ADC" value="ADC2" />
+        <define key="PHASE_V_S_CURR_CHANNEL" value="ADC_Channel_7" />
+        <define key="PHASE_V_S_GPIO_PIN" value="GPIO_Pin_1" />
+        <define key="PHASE_V_S_GPIO_PORT" value="GPIOC" />
         <define key="PHASE_VH_GPIO_PIN" value="GPIO_Pin_9" />
         <define key="PHASE_VH_GPIO_PORT" value="GPIOA" />
         <define key="PHASE_VH_POLARITY" value="H_ACTIVE_HIGH" />
         <define key="PHASE_VL_GPIO_PIN" value="GPIO_Pin_0" />
         <define key="PHASE_VL_GPIO_PORT" value="GPIOB" />
         <define key="PHASE_VL_POLARITY" value="L_ACTIVE_LOW" />
-        <define key="PHASE_W_CURR_ADC" value="ADC1" />
+        <define key="PHASE_W_CURR_ADC" value="ADC2" />
         <define key="PHASE_W_CURR_CHANNEL" value="ADC_Channel_6" />
         <define key="PHASE_W_GPIO_PIN" value="GPIO_Pin_0" />
         <define key="PHASE_W_GPIO_PORT" value="GPIOC" />
@@ -242,6 +260,8 @@
         <define key="RCC_REQS" value="['RCC.ADC12CLockSelection=RCC_ADC12CLKSOURCE_PLL','RCC.ADC12Freq_Value=42500000','RCC.ADC345CLockSelection=RCC_ADC345CLKSOURCE_PLL','RCC.ADC345Freq_Value=42500000','RCC.AHBFreq_Value=170000000','RCC.APB1Freq_Value=170000000','RCC.APB1TimFreq_Value=170000000','RCC.APB2Freq_Value=170000000','RCC.APB2TimFreq_Value=170000000','RCC.CK48CLockSelection=RCC_USBCLKSOURCE_PLL','RCC.CortexFreq_Value=170000000','RCC.CRSFreq_Value=48000000','RCC.EnbaleCSS=true','RCC.FamilyName=M','RCC.FCLKCortexFreq_Value=170000000','RCC.FDCANFreq_Value=170000000','RCC.HCLKFreq_Value=170000000','RCC.HRTIM1Freq_Value=170000000','RCC.HSE_VALUE=24000000','RCC.HSI48_VALUE=48000000','RCC.I2C1Freq_Value=170000000','RCC.I2C2Freq_Value=170000000','RCC.I2C3Freq_Value=170000000','RCC.I2C4Freq_Value=170000000','RCC.I2SFreq_Value=170000000','RCC.IPParameters=ADC12CLockSelection,ADC12Freq_Value,ADC345CLockSelection,ADC345Freq_Value,AHBFreq_Value,APB1Freq_Value,APB1TimFreq_Value,APB2Freq_Value,APB2TimFreq_Value,CK48CLockSelection,CRSFreq_Value,CortexFreq_Value,EnbaleCSS,FCLKCortexFreq_Value,FDCANFreq_Value,FamilyName,HCLKFreq_Value,HRTIM1Freq_Value,HSE_VALUE,HSI48_VALUE,I2C1Freq_Value,I2C2Freq_Value,I2C3Freq_Value,I2C4Freq_Value,I2SFreq_Value,LPTIM1Freq_Value,LPUART1Freq_Value,PLLM,PLLN,PLLP,PLLPoutputFreq_Value,PLLQoutputFreq_Value,PLLRCLKFreq_Value,PLLSourceVirtual,PREFETCH_ENABLE,PWRFreq_Value,QSPIFreq_Value,RNGFreq_Value,SAI1Freq_Value,SYSCLKFreq_VALUE,SYSCLKSource,UART4Freq_Value,UART5Freq_Value,USART1Freq_Value,USART2Freq_Value,USART3Freq_Value,USBFreq_Value,VCOInputFreq_Value,VCOOutputFreq_Value','RCC.LPTIM1Freq_Value=170000000','RCC.LPUART1Freq_Value=170000000','RCC.PLLM=RCC_PLLM_DIV6','RCC.PLLN=85','RCC.PLLP=RCC_PLLP_DIV8','RCC.PLLPoutputFreq_Value=42500000','RCC.PLLQoutputFreq_Value=170000000','RCC.PLLRCLKFreq_Value=170000000','RCC.PLLSourceVirtual=RCC_PLLSOURCE_HSE','RCC.PREFETCH_ENABLE=1','RCC.PWRFreq_Value=170000000','RCC.QSPIFreq_Value=170000000','RCC.RNGFreq_Value=170000000','RCC.SAI1Freq_Value=170000000','RCC.SYSCLKFreq_VALUE=170000000','RCC.SYSCLKSource=RCC_SYSCLKSOURCE_PLLCLK','RCC.UART4Freq_Value=170000000','RCC.UART5Freq_Value=170000000','RCC.USART1Freq_Value=170000000','RCC.USART2Freq_Value=170000000','RCC.USART3Freq_Value=170000000','RCC.USBFreq_Value=170000000','RCC.VCOInputFreq_Value=4000000','RCC.VCOOutputFreq_Value=340000000']" />
         <define key="REGULATION_EXECUTION_RATE" value="3" />
         <define key="RTOS" value="NONE" />
+        <define key="SERIAL_COM_MODE" value="COM_BIDIRECTIONAL" />
+        <define key="SERIAL_COMMUNICATION" value="ENABLE" />
         <define key="SINGLEDRIVE" value="TRUE" />
         <define key="SPD_DIFFERENTIAL_TERM_ENABLING" value="DISABLE" />
         <define key="SPEED_SENSOR_SELECTION" value="ENCODER" />
@@ -259,8 +279,15 @@
         <define key="TEMP_FDBK_GPIO_PORT" value="GPIOC" />
         <define key="TEMPERATURE_READING" value="ENABLE" />
         <define key="TFDIFFERENTIAL_TERM_ENABLING" value="DISABLE" />
-        <define key="THREE_SHUNT" value="TRUE" />
+        <define key="THREE_SHUNT_INDEPENDENT_RESOURCES" value="TRUE" />
         <define key="TRISE_NS" value="1000" />
+        <define key="USART_RX_GPIO_PIN" value="GPIO_Pin_3" />
+        <define key="USART_RX_GPIO_PORT" value="GPIOA" />
+        <define key="USART_SELECTION" value="USE_USART2" />
+        <define key="USART_SELECTION_A" value="USART2" />
+        <define key="USART_SPEED" value="115200" />
+        <define key="USART_TX_GPIO_PIN" value="GPIO_Pin_2" />
+        <define key="USART_TX_GPIO_PORT" value="GPIOA" />
         <define key="USE_3OPAMPS" value="FALSE" />
         <define key="USE_INTERNAL_OPAMP" value="DISABLE" />
         <define key="UV_VOLTAGE_PROT_ENABLING" value="ENABLE" />
@@ -270,7 +297,7 @@
         <define key="VBUS_GPIO_PIN" value="GPIO_Pin_1" />
         <define key="VBUS_GPIO_PORT" value="GPIOA" />
         <define key="WB_UI_CUTOFF_FREQUENCY" value="6000" />
-        <define key="WB_UI_ENCODER_HAS_INDEX_PIN" value="TRUE" />
+        <define key="WB_UI_ENCODER_HAS_INDEX_PIN" value="FALSE" />
         <define key="WB_UI_FLUX_TARGET" value="0" />
         <define key="WB_UI_FRICTION" value="42.02" />
         <define key="WB_UI_INERTIA" value="0.04" />

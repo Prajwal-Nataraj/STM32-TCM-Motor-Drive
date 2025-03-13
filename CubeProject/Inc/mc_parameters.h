@@ -24,13 +24,14 @@
 
 #include "mc_interface.h"
 
-#include "r3_1_g4xx_pwm_curr_fdbk.h"
+#include "r3_2_g4xx_pwm_curr_fdbk.h"
 
 /* USER CODE BEGIN Additional include */
 
 /* USER CODE END Additional include */
 
-extern const R3_1_Params_t R3_1_ParamsM1;
+extern const R3_2_Params_t R3_2_ParamsM1;
+
 extern ScaleParams_t scaleParams_M1;
 
 /* USER CODE BEGIN Additional extern */
