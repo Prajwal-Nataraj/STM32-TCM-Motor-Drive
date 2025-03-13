@@ -137,10 +137,6 @@ int main(void)
 	StdReturn_t stdRet;
 	HAL_UART_Transmit(&huart_MD, (uint8_t *)"Welcome to TCM Motor Drive", 28, UART_TICK_TIMEOUT);
 
-//	MC_ProgramSpeedRampMotor1(-12*8, 10000);
-//	HAL_Delay(1500);
-//	MC_StartMotor1();
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
